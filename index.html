@@ -57,7 +57,7 @@
         <th>内容</th>
       </tr>
       <tr>
-        <td>メール</td>
+        <td></td>
         <td></td>
         <td></td>
       </tr>
@@ -69,8 +69,18 @@
       return {
         // 変数（プロパティ）
         list: false,
-        apikey: '' // 自分で取得する
+        apikey: localStorage.APIKEY, // 自分で取得する
+        async getProgramList(){
+            const query = new URLSearchParams({
+            api: localStorage.APIKEY,
+            id: this.id
+          })
 
+          const res = await fetch('https://api.nhk.or.jp/v2/pg/list/130/g1/2025-10-03.json?key=ALOzckxzRFP2tErYmgK1LPVJFgtMKc3i');
+          const obj = await res.json();
+          this.data = obj;
+          console.log(JSON.stringify(this.data, null, 2));
+        }
         // 関数（メソッド）
       };
     }
